@@ -17,7 +17,7 @@ phases:
   post_build:
     commands:
       - echo build finished
-      - printf '[{"name":"example","imageUri":"%s"}]' $IMAGE > imagedefinition.json
+      - printf '[{"name":"container_definition","imageUri":"%s"}]' $IMAGE > imagedefinition.json
 artifacts:
   files:
     - imagedefinition.json
