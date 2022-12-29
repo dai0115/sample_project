@@ -1,8 +1,11 @@
-FROM python:3
+FROM amazonlinux
 
-WORKDIR /usr/src/app
+RUN yum update -y && yum install python3 python3-pip -y
 
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install bottle
 
-COPY . .
+COPY main.py ./
+
+CMD ["python3", "main.py"]
+
+EXPOSE 8080
