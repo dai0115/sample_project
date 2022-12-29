@@ -19,4 +19,5 @@ phases:
       - echo build finished
       - printf '[{"name":"example","imageUri":"%s"}]' $IMAGE > imagedefinitions.json
 artifacts:
-  files: imagedefinition.json
+  files:
+    - imagedefinition.json
