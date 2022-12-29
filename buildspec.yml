@@ -3,12 +3,11 @@ version: 0.2
 phases:
   install:
     runtime-versions:
-      docker: 18
+      docker: 20
   pre_build:
     commands:
-      #- ACCOUNTID=$(aws sts get-caller-identity --query 'Account' --output text)
-      #- echo $ACCOUNTID
-      - aws ecr get-login-password | docker login --username AWS --password-stdin https://215502568245.dkr.ecr.ap-northeast-1.amazonaws.com
+      - ACCOUNTID=$(aws sts get-caller-identity --query 'Account' --output text)
+      - aws ecr get-login-password | docker login --username AWS --password-stdin https://$ACCOUNTID.dkr.ecr.ap-northeast-1.amazonaws.com
       - REPO=$(aws ecr describe-repositories --repository-names ecr_repository --output text --query "repositories[0].repositoryUri")
       - IMAGE=$REPO:latest
   build:
@@ -18,5 +17,6 @@ phases:
   post_build:
     commands:
       - echo build finished
+      - printf '[{"name":"example","imageUri":"%s"}]' $IMAGE > imagedefinitions.json
 artifacts:
   files: imagedefinition.json
