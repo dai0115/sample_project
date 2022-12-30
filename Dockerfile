@@ -6,6 +6,6 @@ RUN pip3 install bottle
 
 COPY main.py ./
 
-CMD ["python3", "main.py"]
+EXPOSE 80
 
-EXPOSE 8080
+CMD ["python3", "main.py"]
