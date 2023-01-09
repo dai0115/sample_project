@@ -6,18 +6,10 @@ phases:
       docker: 20
   pre_build:
     commands:
-      - ACCOUNTID=$(aws sts get-caller-identity --query 'Account' --output text)
-      - aws ecr get-login-password | docker login --username AWS --password-stdin https://$ACCOUNTID.dkr.ecr.ap-northeast-1.amazonaws.com
-      - REPO=$(aws ecr describe-repositories --repository-names ecr_repository --output text --query "repositories[0].repositoryUri")
-      - IMAGE=$REPO:latest
+      - echo pre_build phase
   build:
     commands:
-      - docker build -t $IMAGE .
-      - docker push $IMAGE
+      - echo build phase
   post_build:
     commands:
-      - echo build finished
-      - printf '[{"name":"container_definition","imageUri":"%s"}]' $IMAGE > imagedefinition.json
-artifacts:
-  files:
-    - imagedefinition.json
+      - echo post_build phase
