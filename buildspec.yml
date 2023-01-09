@@ -13,3 +13,4 @@ phases:
   post_build:
     commands:
       - echo post_build phase
+      - pip install boto3
